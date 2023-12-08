@@ -38,7 +38,7 @@ public class SubjectExcelListener extends AnalysisEventListener<SubjectData> {
         }
 
         //添加二级分类
-        //判断耳机分类是否重复
+        //判断二级分类是否重复
         String pid = existFirstSubject.getId();
         EduSubject existSecondSubject = this.existSecondSubject(subjectService, subjectData.getSecondSubjectName(), pid);
         if (existSecondSubject == null) {//如果没有相同一级分类，进行添加
@@ -71,4 +71,6 @@ public class SubjectExcelListener extends AnalysisEventListener<SubjectData> {
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
 
     }
+
+
 }

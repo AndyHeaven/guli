@@ -40,11 +40,13 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         //判断手机号正确
         QueryWrapper<UcenterMember> wrapper = new QueryWrapper<>();
         wrapper.eq("mobile", mobile);
+        // 后端查询到数据库中的用户
         UcenterMember mobileMember = baseMapper.selectOne(wrapper);
+        // 如果不存在
         if (mobileMember == null) {
             throw new GuliException(20001, "手机号不存在！");
         }
-        //判断密码,因为前端传递过来的密码肯定是源密码，后段数据库储存肯定要考虑安全性会进行，加密，所有要对前端传递过来的数据进行加密在比较
+        //判断密码,因为前端传递过来的密码肯定是源密码，后端数据库储存肯定要考虑安全性会进行，加密，所有要对前端传递过来的数据进行加密再比较
         String selectPassword = mobileMember.getPassword();
         if (!MD5.encrypt(password).equals(selectPassword)) {
             throw new GuliException(20001, "密码错误！");
@@ -72,15 +74,15 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         }
 
         //判断验证码
-        if (!redisTemplate.opsForValue().get(mobile).equals(code)){
+        if (!redisTemplate.opsForValue().get(mobile).equals(code)) {
             throw new GuliException(20001, "注册失败（验证码错误）！");
         }
 
         //手机号不能重复注册
         QueryWrapper<UcenterMember> wrapper = new QueryWrapper<>();
-        wrapper.eq("mobile",mobile);
+        wrapper.eq("mobile", mobile);
         UcenterMember ucenterMember = baseMapper.selectOne(wrapper);
-        if (ucenterMember !=null){
+        if (ucenterMember != null) {
             throw new GuliException(20001, "注册失败（手机号已注册）！");
         }
 
@@ -98,7 +100,7 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
     @Override
     public UcenterMember getOpenIdMember(String openid) {
         QueryWrapper<UcenterMember> wrapper = new QueryWrapper<>();
-        wrapper.eq("openid",openid);
+        wrapper.eq("openid", openid);
         UcenterMember member = baseMapper.selectOne(wrapper);
         return member;
     }

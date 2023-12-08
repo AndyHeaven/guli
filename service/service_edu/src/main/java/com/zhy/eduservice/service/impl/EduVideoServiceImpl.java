@@ -29,12 +29,12 @@ public class EduVideoServiceImpl extends ServiceImpl<EduVideoMapper, EduVideo> i
     //TODO 删除小节并删除对应文件
     @Override
     public void removeVideoByCourseId(String courseId) {
-        //1、根据课程id查询课程中所有视频id，删除视频
+        // 1、根据课程id查询课程中所有视频id，删除视频
         QueryWrapper<EduVideo> videoWrapper = new QueryWrapper<>();
         videoWrapper.eq("course_id", courseId);
         videoWrapper.select("video_source_id");
         List<EduVideo> videoList = baseMapper.selectList(videoWrapper);
-        //List<EduVideo>变成List<String>
+        // List<EduVideo>变成List<String>，因为deleteBatch传入的是一个字符串
         List<String> videoIds = new ArrayList<>();
         for (EduVideo eduVideo : videoList) {
             if (!StringUtils.isEmpty(eduVideo.getVideoSourceId()))

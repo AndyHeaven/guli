@@ -56,6 +56,7 @@ public class UcenterMemberController {
         UcenterMember member = ucenterMemberService.getById(memberId);
         return R.ok().data("userInfo", member);
     }
+
     @ApiOperation("根据用户id获取用户信息,用于order模块远程调用")
     //根据用户id获取用户信息
     @PostMapping("getUserInfoOrder/{id}")

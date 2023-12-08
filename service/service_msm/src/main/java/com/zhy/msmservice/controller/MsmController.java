@@ -27,7 +27,7 @@ public class MsmController {
     @ApiOperation("发送短信验证码")
     @GetMapping("send/{phone}")
     public R sendMsm(@PathVariable String phone) {
-        //首先从redis取验证码，如果取得到直接返回，如果取不到再生成随机值返回
+        //首先从redis取验证码，如果取得到直接返回，不再重复发送，如果取不到再生成随机值返回
         String code = redisTemplate.opsForValue().get(phone);
         if (!StringUtils.isEmpty(code)) {
             return R.ok();

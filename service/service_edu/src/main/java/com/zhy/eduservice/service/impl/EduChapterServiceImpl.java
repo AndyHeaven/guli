@@ -34,10 +34,11 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
     //课程大纲列表,根据课程id查询
     @Override
     public List<ChapterVo> getChapterVideoByCourseId(String courseId) {
+        // 根据课程id查询章节
         QueryWrapper<EduChapter> wrapperChapter = new QueryWrapper<>();
         wrapperChapter.eq("course_id", courseId);
         List<EduChapter> chapterList = baseMapper.selectList(wrapperChapter);
-
+        // 查询小节
         QueryWrapper<EduVideo> wrapperVideo = new QueryWrapper<>();
         wrapperVideo.eq("course_id", courseId);
         //当前basemapper是EduChapter的，video无法使用，所以引入eduvideoservice

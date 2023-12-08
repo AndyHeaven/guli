@@ -62,7 +62,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         eduCourseDescriptionService.save(eduCourseDescription);
         return courseId;
     }
-
+    // 查询课程基本信息，（前端页面点击上一步时，需要数据回显，则需要查询信息）
     @Override
     public CourseInfoVo getCourseInfo(String courseId) {
         //查询课程表
